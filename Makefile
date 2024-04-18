@@ -1,21 +1,23 @@
-FC = gfortran
-F77 = gfortran
-CC = gfortran
+FC = x86_64-linux-gnu-gfortran
+F77 = x86_64-linux-gnu-gfortran
 
-FPFLAGS = -DWITH_JSON=0
-#FPFLAGS = -DWITH_BLAS=1
+FPFLAGS = -DWITH_JSON=0 -DWITH_BLAS=1
 
-FFLAGS =  -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIC
+#FFLAGS =  -fdefault-real-8 -fdefault-double-8 -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie
 
-F77FLAGS = -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIC
+#F77FLAGS = -fdefault-real-8 -fdefault-double-8 -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie
+
+FFLAGS =  -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIE
+
+F77FLAGS = -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIE
 
 CFLAGS= -O2 -g -DNDEBUG -fPIC -pie
 
-LIB = ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../libs-aarch64/liblapack.a ./libs-dftd3.a ./libmctc.a ../libs-aarch64/libblas.a
+LIB = ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ./libmctc.a ../../libs-x86_64/libblas.a
 
 INC = -I./mctc-lib-src/include/mctc -I./mctc-lib-src/include -I. -I./include -I./tblite-src/include -I./tblite-src
 
-LDFLAGS = -pie -static-libgfortran -fPIC
+LDFLAGS = -pie -static -fPIC
 	
 MCTCLIB = mctc-lib-src/src/mctc/env/accuracy.o \
 mctc-lib-src/src/mctc/env/error.o \
@@ -487,35 +489,37 @@ src/cid.o
 
 QCXMS =	src/main.o
 
-all:  libmctc.a libs-dftd3.a libtoml-f.a libmulticharge.a libdftd4.a libtblite.a mctc-convert libmstore.a mstore-fortranize mstore-info toml2json libtest-drive.a tftester json2toml tftest-fpm tftest-version test-drive-tester multicharge multicharge-tester dftd4 dftd4-tester s-dftd3 s-dftd3-tester tblite tblite-api-tester tblite-tester librmsd.a rmsd-tool rmsd-tester libqcxms.a qcxms strip
+# all:  libmctc.a libs-dftd3.a libtoml-f.a libmulticharge.a libdftd4.a libtblite.a mctc-convert libmstore.a mstore-fortranize mstore-info toml2json libtest-drive.a tftester json2toml tftest-fpm tftest-version test-drive-tester multicharge multicharge-tester dftd4 dftd4-tester s-dftd3 s-dftd3-tester tblite tblite-api-tester tblite-tester librmsd.a rmsd-tool rmsd-tester libqcxms.a qcxms strip
+
+all:  libmctc.a libs-dftd3.a libtoml-f.a libmulticharge.a libdftd4.a libtblite.a mctc-convert libmstore.a mstore-fortranize mstore-info toml2json libtest-drive.a tftester json2toml tftest-fpm tftest-version test-drive-tester multicharge multicharge-tester dftd4 dftd4-tester s-dftd3 s-dftd3-tester tblite tblite-tester librmsd.a rmsd-tool rmsd-tester libqcxms.a qcxms strip
 	
 libmctc.a:  $(MCTCLIB) 
-	ar qc libmctc.a $(MCTCLIB) 
-	ranlib libmctc.a
+	x86_64-linux-gnu-ar qc libmctc.a $(MCTCLIB) 
+	x86_64-linux-gnu-ranlib libmctc.a
 
 libs-dftd3.a:  $(SDFTD3LIB) 
-	ar qc libs-dftd3.a $(SDFTD3LIB) 
-	ranlib libs-dftd3.a
+	x86_64-linux-gnu-ar qc libs-dftd3.a $(SDFTD3LIB) 
+	x86_64-linux-gnu-ranlib libs-dftd3.a
 
 libtoml-f.a:	$(TOMLFLIB) 
-	ar qc libtoml-f.a $(TOMLFLIB) 
-	ranlib libtoml-f.a
+	x86_64-linux-gnu-ar qc libtoml-f.a $(TOMLFLIB) 
+	x86_64-linux-gnu-ranlib libtoml-f.a
 
 libmulticharge.a:  $(MULTICHARGELIB) 
-	ar qc libmulticharge.a $(MULTICHARGELIB) 
-	ranlib libmulticharge.a
+	x86_64-linux-gnu-ar qc libmulticharge.a $(MULTICHARGELIB) 
+	x86_64-linux-gnu-ranlib libmulticharge.a
 	
 libdftd4.a:  $(DFTD4LIB) 
-	ar qc libdftd4.a $(DFTD4LIB) 
-	ranlib libdftd4.a
+	x86_64-linux-gnu-ar qc libdftd4.a $(DFTD4LIB) 
+	x86_64-linux-gnu-ranlib libdftd4.a
 	
 libtblite.a:  $(TBLITELIB) 
-	ar qc libtblite.a $(TBLITELIB) 
-	ranlib libtblite.a
+	x86_64-linux-gnu-ar qc libtblite.a $(TBLITELIB) 
+	x86_64-linux-gnu-ranlib libtblite.a
 	
 librmsd.a:  $(RMSDLIB) 
-	ar qc librmsd.a $(RMSDLIB)
-	ranlib librmsd.a
+	x86_64-linux-gnu-ar qc librmsd.a $(RMSDLIB)
+	x86_64-linux-gnu-ranlib librmsd.a
 	
 rmsd-tool:  $(RMSDTOOL) 
 	$(FC) $(FFLAGS) $(RMSDTOOL) $(LDFLAGS) -o rmsd-tool-exe ./librmsd.a $(LIB)
@@ -524,8 +528,8 @@ rmsd-tester:  $(RMSDTESTER)
 	$(FC) $(FFLAGS) $(RMSDTESTER) $(LDFLAGS) -o rmsd-tester ./librmsd.a $(LIB)
 	
 libqcxms.a:  $(QCXMSLIB)
-	ar qc libqcxms.a $(QCXMSLIB) 
-	ranlib libqcxms.a
+	x86_64-linux-gnu-ar qc libqcxms.a $(QCXMSLIB) 
+	x86_64-linux-gnu-ranlib libqcxms.a
 
 #libxtb.so:  $(XTBLIB) 
 #	$(FC) -fPIC -shared -Wl,--allow-multiple-definition -Wl,-soname,libxtb.so.6 -o libxtb.so.6.6.0 $(XTBLIB) 
@@ -538,8 +542,8 @@ mctc-convert:  $(MCTCTESTERLIB) $(MCTCCONVERT)
 	$(FC) $(FFLAGS) $(MCTCTESTERLIB) $(LDFLAGS) -o mctc-lib-tester ./libmctc.a
 	
 libmstore.a:  $(MSTORELIB) 
-	ar qc libmstore.a $(MSTORELIB) 
-	ranlib libmstore.a
+	x86_64-linux-gnu-ar qc libmstore.a $(MSTORELIB) 
+	x86_64-linux-gnu-ranlib libmstore.a
 	
 mstore-fortranize:  $(MSTOREFORTRANIZE) 
 	$(FC) $(FFLAGS) $(MSTOREFORTRANIZE) $(LDFLAGS) -o mstore-fortranize ./libmstore.a ./libmctc.a
@@ -551,8 +555,8 @@ toml2json:  $(TOML2JSON)
 	$(FC) $(FFLAGS) $(TOML2JSON) $(LDFLAGS) -o toml2json $(LIB)
 	
 libtest-drive.a:  $(TESTDRIVE) 
-	ar qc libtest-drive.a $(TESTDRIVE) 
-	ranlib libtest-drive.a
+	x86_64-linux-gnu-ar qc libtest-drive.a $(TESTDRIVE) 
+	x86_64-linux-gnu-ranlib libtest-drive.a
 	
 tftester:  $(TFTESTER) 
 	$(FC) $(FFLAGS) $(TFTESTER) $(LDFLAGS) -o tftester ./libtoml-f.a ./libtest-drive.a 
@@ -573,53 +577,54 @@ multicharge:  $(MULTICHARGE)
 	$(FC) $(FFLAGS) $(MULTICHARGE) $(LDFLAGS) -o multicharge $(LIB)
 	
 multicharge-tester:  $(MULTICHARGETESTER) 
-	$(FC) $(FFLAGS) $(MULTICHARGETESTER) $(LDFLAGS) -o multicharge-tester ./libmulticharge.a ../libs-aarch64/liblapack.a ../libs-aarch64/libblas.a ./libmstore.a ./libmctc.a
+	$(FC) $(FFLAGS) $(MULTICHARGETESTER) $(LDFLAGS) -o multicharge-tester ./libmulticharge.a ../../libs-x86_64/liblapack.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a
 	
 dftd4:  $(DFTD4) 
-	$(FC) $(FFLAGS) $(DFTD4) $(LDFLAGS) -o dftd4 ./libdftd4.a ./libmulticharge.a ../libs-aarch64/liblapack.a ../libs-aarch64/libblas.a ./libmstore.a ./libmctc.a 
+	$(FC) $(FFLAGS) $(DFTD4) $(LDFLAGS) -o dftd4 ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a 
 	
 dftd4-tester:  $(DFTD4TESTER) 
-	$(FC) $(FFLAGS) $(DFTD4TESTER) $(LDFLAGS) -o dftd4-tester ./libdftd4.a ./libmulticharge.a ../libs-aarch64/liblapack.a ../libs-aarch64/libblas.a ./libmstore.a ./libmctc.a 
+	$(FC) $(FFLAGS) $(DFTD4TESTER) $(LDFLAGS) -o dftd4-tester ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a 
 	
 s-dftd3:  $(SDFTD3) 
 	$(FC) $(FFLAGS) $(SDFTD3) $(LDFLAGS) -o s-dftd3 $(LIB)
 	
 s-dftd3-tester:  $(SDFTD3TESTER) 
-	$(FC) $(FFLAGS) $(SDFTD3TESTER) $(LDFLAGS) -o s-dftd3-tester  ./libs-dftd3.a ../libs-aarch64/libblas.a ./libmstore.a ./libmctc.a 
+	$(FC) $(FFLAGS) $(SDFTD3TESTER) $(LDFLAGS) -o s-dftd3-tester  ./libs-dftd3.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a 
 	
 tblite:  $(TBLITE) 
 	$(FC) $(FFLAGS) $(TBLITE) $(LDFLAGS) -o tblite $(LIB)
 	
-tblite-api-tester:  $(TBLITEAPITESTER) 
-# $(CC) $(CFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../libs-aarch64/liblapack.a ./libs-dftd3.a ./libmctc.a ../libs-aarch64/libblas.a -static-libgfortran -lm -lgcc
-	$(FC) $(FFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../libs-aarch64/liblapack.a ./libs-dftd3.a ./libmctc.a ../libs-aarch64/libblas.a -static-libgfortran -lm -lgcc
+tblite-api-tester:  $(TBLITEAPITESTER)
+# remove from Linux cross compilations - problems with adding symbols (wrong format - aarch64), relocations (x86)...
+# $(CC) $(CFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../libs-x86_64/liblapack.a ./libs-dftd3.a ./libmctc.a ../libs-x86_64/libblas.a -static-libgfortran -lm -lgcc
+	$(FC) $(FFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ./libmctc.a ../../libs-x86_64/libblas.a -static -pie -fPIC -lm -lgcc
 	
 tblite-tester:  $(TBLITETESTER) 
-	$(FC) $(FFLAGS) $(TBLITETESTER) $(LDFLAGS) -o tblite-tester ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../libs-aarch64/liblapack.a ./libs-dftd3.a ../libs-aarch64/libblas.a ./libmstore.a ./libmctc.a
+	$(FC) $(FFLAGS) $(TBLITETESTER) $(LDFLAGS) -o tblite-tester ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a
 	
 strip:
-	strip qcxms
-	strip mctc-convert
-	strip mctc-lib-tester
-	strip mstore-fortranize
-	strip mstore-info
-	strip toml2json
-	strip tftester
-	strip json2toml
-	strip tftest-fpm
-	strip tftest-version
-	strip test-drive-tester
-	strip multicharge
-	strip multicharge-tester
-	strip dftd4
-	strip dftd4-tester
-	strip s-dftd3
-	strip s-dftd3-tester
-	strip tblite
-	strip tblite-api-tester
-	strip tblite-tester
-	strip rmsd-tester
-	strip rmsd-tool-exe
+	x86_64-linux-gnu-strip qcxms
+	x86_64-linux-gnu-strip mctc-convert
+	x86_64-linux-gnu-strip mctc-lib-tester
+	x86_64-linux-gnu-strip mstore-fortranize
+	x86_64-linux-gnu-strip mstore-info
+	x86_64-linux-gnu-strip toml2json
+	x86_64-linux-gnu-strip tftester
+	x86_64-linux-gnu-strip json2toml
+	x86_64-linux-gnu-strip tftest-fpm
+	x86_64-linux-gnu-strip tftest-version
+	x86_64-linux-gnu-strip test-drive-tester
+	x86_64-linux-gnu-strip multicharge
+	x86_64-linux-gnu-strip multicharge-tester
+	x86_64-linux-gnu-strip dftd4
+	x86_64-linux-gnu-strip dftd4-tester
+	x86_64-linux-gnu-strip s-dftd3
+	x86_64-linux-gnu-strip s-dftd3-tester
+	x86_64-linux-gnu-strip tblite
+#	x86_64-linux-gnu-strip tblite-api-tester
+	x86_64-linux-gnu-strip tblite-tester
+	x86_64-linux-gnu-strip rmsd-tester
+	x86_64-linux-gnu-strip rmsd-tool-exe
 
 clean: 
 	find . -name "*.o" -type f -delete
@@ -660,18 +665,14 @@ clean:
 	$(CC) $(INC) $(CFLAGS) -c $< -o $@
 
 %.o: %.f
-	$(FC) $(INC) $(F77FLAGS) -c $< -o $@
+	$(FC) $(FPFLAGS) $(INC) $(F77FLAGS) -c $< -o $@
 	
 %.o: %.F
-	$(FC) $(INC) $(F77FLAGS) -c $< -o $@
+	$(FC) $(FPFLAGS) $(INC) $(F77FLAGS) -c $< -o $@
 
 %.o: %.f90
-	$(FC) $(INC) $(FFLAGS) -c $< -o $@
+	$(FC) $(FPFLAGS) $(INC) $(FFLAGS) -c $< -o $@
 	
 %.o: %.F90
-	$(FC) $(INC) $(FFLAGS) -c $< -o $@
+	$(FC) $(FPFLAGS) $(INC) $(FFLAGS) -c $< -o $@
 
-mctc-lib-src/src/mctc/io/read/cjson.o: mctc-lib-src/src/mctc/io/read/cjson.F90
-	$(FC) $(INC) $(FPFLAGS) $(FFLAGS) -c $< -o $@
-mctc-lib-src/src/mctc/io/read/qcschema.o: mctc-lib-src/src/mctc/io/read/qcschema.F90
-	$(FC) $(INC) $(FPFLAGS) $(FFLAGS) -c $< -o $@

@@ -31,10 +31,10 @@ module qcxms_info
     write(*,'(22x,''*                                           *'')')
     write(*,'(22x,''*********************************************'')')
     write(*,*)
-    write(*,'('' Special version for Android (aarch64, pie) '')')
-    write(*,'('' linked with high-performance BLAS and LAPACK libraries '')')
+    write(*,'('' Special version for Linux (Debian, x86_64, pie, static) '')')
+    write(*,'('' linked with high-performance BLAS and LAPACK libraries (for Android) '')')
     write(*,'('' compiled by A. Liska & V. Ruzickova '')')
-    write(*,'('' on June 26, 2023. '')')
+    write(*,'('' on April 16, 2024. '')')
     write(*,*)
     write(*,'('' QCxMS is free software: you can redistribute it and/or &
             &modify it under'')')
