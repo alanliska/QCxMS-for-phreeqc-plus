@@ -1,5 +1,5 @@
-FC = x86_64-linux-gnu-gfortran
-F77 = x86_64-linux-gnu-gfortran
+FC = /path/to/cross-compiler/prefix-gfortran
+F77 = /path/to/cross-compiler/prefix-gfortran
 
 FPFLAGS = -DWITH_JSON=0 -DWITH_BLAS=1
 
@@ -494,32 +494,32 @@ QCXMS =	src/main.o
 all:  libmctc.a libs-dftd3.a libtoml-f.a libmulticharge.a libdftd4.a libtblite.a mctc-convert libmstore.a mstore-fortranize mstore-info toml2json libtest-drive.a tftester json2toml tftest-fpm tftest-version test-drive-tester multicharge multicharge-tester dftd4 dftd4-tester s-dftd3 s-dftd3-tester tblite tblite-tester librmsd.a rmsd-tool rmsd-tester libqcxms.a qcxms strip
 	
 libmctc.a:  $(MCTCLIB) 
-	x86_64-linux-gnu-ar qc libmctc.a $(MCTCLIB) 
-	x86_64-linux-gnu-ranlib libmctc.a
+	/path/to/cross-compiler/prefix-ar qc libmctc.a $(MCTCLIB) 
+	/path/to/cross-compiler/prefix-ranlib libmctc.a
 
 libs-dftd3.a:  $(SDFTD3LIB) 
-	x86_64-linux-gnu-ar qc libs-dftd3.a $(SDFTD3LIB) 
-	x86_64-linux-gnu-ranlib libs-dftd3.a
+	/path/to/cross-compiler/prefix-ar qc libs-dftd3.a $(SDFTD3LIB) 
+	/path/to/cross-compiler/prefix-ranlib libs-dftd3.a
 
 libtoml-f.a:	$(TOMLFLIB) 
-	x86_64-linux-gnu-ar qc libtoml-f.a $(TOMLFLIB) 
-	x86_64-linux-gnu-ranlib libtoml-f.a
+	/path/to/cross-compiler/prefix-ar qc libtoml-f.a $(TOMLFLIB) 
+	/path/to/cross-compiler/prefix-ranlib libtoml-f.a
 
 libmulticharge.a:  $(MULTICHARGELIB) 
-	x86_64-linux-gnu-ar qc libmulticharge.a $(MULTICHARGELIB) 
-	x86_64-linux-gnu-ranlib libmulticharge.a
+	/path/to/cross-compiler/prefix-ar qc libmulticharge.a $(MULTICHARGELIB) 
+	/path/to/cross-compiler/prefix-ranlib libmulticharge.a
 	
 libdftd4.a:  $(DFTD4LIB) 
-	x86_64-linux-gnu-ar qc libdftd4.a $(DFTD4LIB) 
-	x86_64-linux-gnu-ranlib libdftd4.a
+	/path/to/cross-compiler/prefix-ar qc libdftd4.a $(DFTD4LIB) 
+	/path/to/cross-compiler/prefix-ranlib libdftd4.a
 	
 libtblite.a:  $(TBLITELIB) 
-	x86_64-linux-gnu-ar qc libtblite.a $(TBLITELIB) 
-	x86_64-linux-gnu-ranlib libtblite.a
+	/path/to/cross-compiler/prefix-ar qc libtblite.a $(TBLITELIB) 
+	/path/to/cross-compiler/prefix-ranlib libtblite.a
 	
 librmsd.a:  $(RMSDLIB) 
-	x86_64-linux-gnu-ar qc librmsd.a $(RMSDLIB)
-	x86_64-linux-gnu-ranlib librmsd.a
+	/path/to/cross-compiler/prefix-ar qc librmsd.a $(RMSDLIB)
+	/path/to/cross-compiler/prefix-ranlib librmsd.a
 	
 rmsd-tool:  $(RMSDTOOL) 
 	$(FC) $(FFLAGS) $(RMSDTOOL) $(LDFLAGS) -o rmsd-tool-exe ./librmsd.a $(LIB)
@@ -528,8 +528,8 @@ rmsd-tester:  $(RMSDTESTER)
 	$(FC) $(FFLAGS) $(RMSDTESTER) $(LDFLAGS) -o rmsd-tester ./librmsd.a $(LIB)
 	
 libqcxms.a:  $(QCXMSLIB)
-	x86_64-linux-gnu-ar qc libqcxms.a $(QCXMSLIB) 
-	x86_64-linux-gnu-ranlib libqcxms.a
+	/path/to/cross-compiler/prefix-ar qc libqcxms.a $(QCXMSLIB) 
+	/path/to/cross-compiler/prefix-ranlib libqcxms.a
 
 #libxtb.so:  $(XTBLIB) 
 #	$(FC) -fPIC -shared -Wl,--allow-multiple-definition -Wl,-soname,libxtb.so.6 -o libxtb.so.6.6.0 $(XTBLIB) 
@@ -542,8 +542,8 @@ mctc-convert:  $(MCTCTESTERLIB) $(MCTCCONVERT)
 	$(FC) $(FFLAGS) $(MCTCTESTERLIB) $(LDFLAGS) -o mctc-lib-tester ./libmctc.a
 	
 libmstore.a:  $(MSTORELIB) 
-	x86_64-linux-gnu-ar qc libmstore.a $(MSTORELIB) 
-	x86_64-linux-gnu-ranlib libmstore.a
+	/path/to/cross-compiler/prefix-ar qc libmstore.a $(MSTORELIB) 
+	/path/to/cross-compiler/prefix-ranlib libmstore.a
 	
 mstore-fortranize:  $(MSTOREFORTRANIZE) 
 	$(FC) $(FFLAGS) $(MSTOREFORTRANIZE) $(LDFLAGS) -o mstore-fortranize ./libmstore.a ./libmctc.a
@@ -555,8 +555,8 @@ toml2json:  $(TOML2JSON)
 	$(FC) $(FFLAGS) $(TOML2JSON) $(LDFLAGS) -o toml2json $(LIB)
 	
 libtest-drive.a:  $(TESTDRIVE) 
-	x86_64-linux-gnu-ar qc libtest-drive.a $(TESTDRIVE) 
-	x86_64-linux-gnu-ranlib libtest-drive.a
+	/path/to/cross-compiler/prefix-ar qc libtest-drive.a $(TESTDRIVE) 
+	/path/to/cross-compiler/prefix-ranlib libtest-drive.a
 	
 tftester:  $(TFTESTER) 
 	$(FC) $(FFLAGS) $(TFTESTER) $(LDFLAGS) -o tftester ./libtoml-f.a ./libtest-drive.a 
@@ -603,28 +603,28 @@ tblite-tester:  $(TBLITETESTER)
 	$(FC) $(FFLAGS) $(TBLITETESTER) $(LDFLAGS) -o tblite-tester ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a
 	
 strip:
-	x86_64-linux-gnu-strip qcxms
-	x86_64-linux-gnu-strip mctc-convert
-	x86_64-linux-gnu-strip mctc-lib-tester
-	x86_64-linux-gnu-strip mstore-fortranize
-	x86_64-linux-gnu-strip mstore-info
-	x86_64-linux-gnu-strip toml2json
-	x86_64-linux-gnu-strip tftester
-	x86_64-linux-gnu-strip json2toml
-	x86_64-linux-gnu-strip tftest-fpm
-	x86_64-linux-gnu-strip tftest-version
-	x86_64-linux-gnu-strip test-drive-tester
-	x86_64-linux-gnu-strip multicharge
-	x86_64-linux-gnu-strip multicharge-tester
-	x86_64-linux-gnu-strip dftd4
-	x86_64-linux-gnu-strip dftd4-tester
-	x86_64-linux-gnu-strip s-dftd3
-	x86_64-linux-gnu-strip s-dftd3-tester
-	x86_64-linux-gnu-strip tblite
-#	x86_64-linux-gnu-strip tblite-api-tester
-	x86_64-linux-gnu-strip tblite-tester
-	x86_64-linux-gnu-strip rmsd-tester
-	x86_64-linux-gnu-strip rmsd-tool-exe
+	/path/to/cross-compiler/prefix-strip qcxms
+	/path/to/cross-compiler/prefix-strip mctc-convert
+	/path/to/cross-compiler/prefix-strip mctc-lib-tester
+	/path/to/cross-compiler/prefix-strip mstore-fortranize
+	/path/to/cross-compiler/prefix-strip mstore-info
+	/path/to/cross-compiler/prefix-strip toml2json
+	/path/to/cross-compiler/prefix-strip tftester
+	/path/to/cross-compiler/prefix-strip json2toml
+	/path/to/cross-compiler/prefix-strip tftest-fpm
+	/path/to/cross-compiler/prefix-strip tftest-version
+	/path/to/cross-compiler/prefix-strip test-drive-tester
+	/path/to/cross-compiler/prefix-strip multicharge
+	/path/to/cross-compiler/prefix-strip multicharge-tester
+	/path/to/cross-compiler/prefix-strip dftd4
+	/path/to/cross-compiler/prefix-strip dftd4-tester
+	/path/to/cross-compiler/prefix-strip s-dftd3
+	/path/to/cross-compiler/prefix-strip s-dftd3-tester
+	/path/to/cross-compiler/prefix-strip tblite
+#	/path/to/cross-compiler/prefix-strip tblite-api-tester
+	/path/to/cross-compiler/prefix-strip tblite-tester
+	/path/to/cross-compiler/prefix-strip rmsd-tester
+	/path/to/cross-compiler/prefix-strip rmsd-tool-exe
 
 clean: 
 	find . -name "*.o" -type f -delete
