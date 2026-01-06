@@ -17,7 +17,7 @@ LIB = ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86
 
 INC = -I./mctc-lib-src/include/mctc -I./mctc-lib-src/include -I. -I./include -I./tblite-src/include -I./tblite-src
 
-LDFLAGS = -pie -static -fPIC
+LDFLAGS = -pie -static -fPIC -Wl,-z,max-page-size=16384
 	
 MCTCLIB = mctc-lib-src/src/mctc/env/accuracy.o \
 mctc-lib-src/src/mctc/env/error.o \
