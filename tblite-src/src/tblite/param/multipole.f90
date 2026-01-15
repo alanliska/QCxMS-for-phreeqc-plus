@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/multipole.f90
-!> Provides a model for the anisotropic second-order electrostatic
-
 !> Definition of the anisotropic second-order electrostatic contributions
 module tblite_param_multipole
    use mctc_env, only : wp, error_type, fatal_error
@@ -25,14 +22,14 @@ module tblite_param_multipole
    implicit none
    private
 
-   public :: count
+   public :: multipole_record, multipole_mask, count
 
 
    character(len=*), parameter :: k_damped = "damped", k_dmp3 = "dmp3", k_dmp5 = "dmp5", &
       & k_kexp = "kexp", k_shift = "shift", k_rmax = "rmax"
 
    !> Representation of the multipolar electrostatics
-   type, public, extends(serde_record) :: multipole_record
+   type, extends(serde_record) :: multipole_record
       !> Damping exponent for quadratic terms
       real(wp) :: dmp3
       !> Damping exponent for cubic terms
@@ -57,8 +54,7 @@ module tblite_param_multipole
    end type
 
 
-   !> Masking for the anisotropic electrostatic parametrization
-   type, public :: multipole_mask
+   type :: multipole_mask
    end type multipole_mask
 
 

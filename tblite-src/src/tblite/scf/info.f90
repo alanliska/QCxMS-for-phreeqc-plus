@@ -14,24 +14,19 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/scf/info.f90
-!> Provides a density dependence information
-
-!> Definition of information container on density dependence
 module tblite_scf_info
    use mctc_env, only : sp, dp, error_type
    implicit none
    private
 
-   public :: not_used, atom_resolved, shell_resolved, orbital_resolved, max
+   public :: scf_info, not_used, atom_resolved, shell_resolved, orbital_resolved, max
 
    integer, parameter :: not_used = 0
    integer, parameter :: atom_resolved = 1
    integer, parameter :: shell_resolved = 2
    integer, parameter :: orbital_resolved = 3
 
-   !> Small info container about density dependence
-   type, public :: scf_info
+   type :: scf_info
       integer :: charge = not_used
       integer :: dipole = not_used
       integer :: quadrupole = not_used

@@ -14,21 +14,17 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/wavefunction/type.f90
-!> Provides a wavefunction type for holding density-related information
-
-!> Declaration of a tight-binding wavefunction
+!> Base model for the extended tight binding hamiltonian
 module tblite_wavefunction_type
    use mctc_env, only : wp
    use tblite_blas, only : gemm
    implicit none
    private
 
-   public :: new_wavefunction
+   public :: wavefunction_type, new_wavefunction
    public :: get_density_matrix, get_alpha_beta_occupation
 
-   !> Tight-binding wavefunction
-   type, public :: wavefunction_type
+   type :: wavefunction_type
       !> Electronic temperature
       real(wp) :: kt = 0.0_wp
       !> Number of electrons in this wavefunction

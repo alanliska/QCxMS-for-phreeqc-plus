@@ -14,10 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/scf/iterator.f90
-!> Provides the implementation of the actual self-consistent field iteractions
-
-!> Iterator for evaluating the Hamiltonian self-consistently
 module tblite_scf_iterator
    use mctc_env, only : wp, error_type
    use mctc_io, only : structure_type
@@ -30,7 +26,7 @@ module tblite_scf_iterator
    use tblite_wavefunction_mulliken, only : get_mulliken_shell_charges, &
       & get_mulliken_atomic_multipoles
    use tblite_xtb_coulomb, only : tb_coulomb
-   use tblite_scf_mixer, only : mixer_type
+   use tblite_scf_broyden, only : broyden_mixer, new_broyden
    use tblite_scf_info, only : scf_info
    use tblite_scf_potential, only : potential_type, add_pot_to_h1
    use tblite_scf_solver, only : solver_type
@@ -56,7 +52,7 @@ subroutine next_scf(iscf, mol, bas, wfn, solver, mixer, info, coulomb, dispersio
    !> Solver for the general eigenvalue problem
    class(solver_type), intent(inout) :: solver
    !> Convergence accelerator
-   class(mixer_type), intent(inout) :: mixer
+   type(broyden_mixer), intent(inout) :: mixer
    !> Information on wavefunction data used to construct Hamiltonian
    type(scf_info), intent(in) :: info
    !> Container for coulombic interactions
@@ -87,8 +83,7 @@ subroutine next_scf(iscf, mol, bas, wfn, solver, mixer, info, coulomb, dispersio
    real(wp) :: ts
 
    if (iscf > 0) then
-      call mixer%next(error)
-      if (allocated(error)) return
+      call mixer%next
       call get_mixer(mixer, bas, wfn, info)
    end if
 
@@ -217,7 +212,7 @@ end function get_mixer_dimension
 
 subroutine set_mixer(mixer, wfn, info)
    use tblite_scf_info, only : atom_resolved, shell_resolved
-   class(mixer_type), intent(inout) :: mixer
+   type(broyden_mixer), intent(inout) :: mixer
    type(wavefunction_type), intent(in) :: wfn
    type(scf_info), intent(in) :: info
 
@@ -241,7 +236,7 @@ end subroutine set_mixer
 
 subroutine diff_mixer(mixer, wfn, info)
    use tblite_scf_info, only : atom_resolved, shell_resolved
-   class(mixer_type), intent(inout) :: mixer
+   type(broyden_mixer), intent(inout) :: mixer
    type(wavefunction_type), intent(in) :: wfn
    type(scf_info), intent(in) :: info
 
@@ -265,7 +260,7 @@ end subroutine diff_mixer
 
 subroutine get_mixer(mixer, bas, wfn, info)
    use tblite_scf_info, only : atom_resolved, shell_resolved
-   class(mixer_type), intent(inout) :: mixer
+   type(broyden_mixer), intent(inout) :: mixer
    type(basis_type), intent(in) :: bas
    type(wavefunction_type), intent(inout) :: wfn
    type(scf_info), intent(in) :: info

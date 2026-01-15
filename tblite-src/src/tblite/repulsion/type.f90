@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/repulsion/type.f90
-!> Provides a base class for repulsion interactions
-
 !> Definition of the abstract base class for classical interactions.
 module tblite_repulsion_type
    use mctc_env, only : wp
@@ -25,11 +22,13 @@ module tblite_repulsion_type
    implicit none
    private
 
+   public :: repulsion_type
+
    !> Abstract base class for classical interactions, like repulsion interactions.
    !>
    !> This class provides a method to retrieve the contributions to the energy,
    !> gradient and virial within a given cutoff.
-   type, public, extends(container_type), abstract :: repulsion_type
+   type, extends(container_type), abstract :: repulsion_type
    end type repulsion_type
 
 end module tblite_repulsion_type

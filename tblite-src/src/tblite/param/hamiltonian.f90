@@ -14,10 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/hamiltonian.f90
-!> Provides parameter record for the Hamiltonian
-
-!> Defines model for the Hamiltonian parameters
 module tblite_param_hamiltonian
    use mctc_env, only : wp, error_type, fatal_error
    use mctc_io_symbols, only : symbol_length
@@ -26,16 +22,14 @@ module tblite_param_hamiltonian
    implicit none
    private
 
-   public :: count
+   public :: hamiltonian_record, hamiltonian_mask, count
 
    character(len=*), parameter :: k_xtb = "xtb", k_ang(0:4) = ["s", "p", "d", "f", "g"], &
       & k_enscale = "enscale", k_shell = "shell", k_wexp = "wexp", k_cn = "cn", &
       & k_kpol = "kpol", k_kpair = "kpair"
    real(wp), parameter :: kpol_default = 2.0_wp
 
-
-   !> Hamiltonian parametrization record
-   type, public, extends(serde_record) :: hamiltonian_record
+   type, extends(serde_record) :: hamiltonian_record
       character(len=symbol_length), allocatable :: sym(:)
       character(len=:), allocatable :: cn
       real(wp), allocatable :: kpair(:, :)
@@ -58,8 +52,7 @@ module tblite_param_hamiltonian
    end type
 
 
-   !> Masking for the Hamiltonian parameter record
-   type, public :: hamiltonian_mask
+   type :: hamiltonian_mask
    end type hamiltonian_mask
 
 

@@ -14,10 +14,7 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/solvation/born.f90
-!> Provides a Born radii integrator
-
-!> Integrator for Born radii based on the Onufriev-Bashford-Case model
+!> Integrator for Born radii
 module tblite_solvation_born
    use mctc_env, only : wp
    use mctc_io, only : structure_type
@@ -27,10 +24,10 @@ module tblite_solvation_born
    implicit none
    private
 
-   public :: new_born_integrator
+   public :: born_integrator, new_born_integrator
 
    !> Implementation of GBOBC integrator
-   type, public :: born_integrator
+   type :: born_integrator
       !> van der Waals radii of the particles
       real(wp), allocatable :: vdwr(:)
       !> pair descreening approximation radii
@@ -174,7 +171,7 @@ subroutine compute_bornr(nat, xyz, list, vdwr, rho, svdw, c1, obc, &
 
       br = br*s2
 
-      arg2 = br*(obc(3)*br-obc(2))
+      arg2 = br*(obc(3)*br-obc(3))
       arg = br*(obc(1)+arg2)
       arg2 = 2.0_wp*arg2+obc(1)+obc(3)*br*br
 

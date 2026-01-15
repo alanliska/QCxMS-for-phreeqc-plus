@@ -16,7 +16,6 @@ module mctc_io_write
    use mctc_env_error, only : error_type, fatal_error
    use mctc_io_filetype, only : filetype, get_filetype
    use mctc_io_write_aims, only : write_aims
-   use mctc_io_write_cjson, only : write_cjson
    use mctc_io_write_ctfile, only : write_molfile, write_sdf
    use mctc_io_write_gaussian, only : write_gaussian_external
    use mctc_io_write_genformat, only : write_genformat
@@ -70,7 +69,7 @@ subroutine write_structure_to_file(self, file, error, format)
       ftype = get_filetype(file)
    end if
 
-   ! Unknown file type is unacceptable in this situation,
+   ! Unknown file type is inacceptable in this situation,
    ! try to figure at least something out
    if (ftype == filetype%unknown) then
       if (any(self%periodic)) then
@@ -131,9 +130,6 @@ subroutine write_structure_to_unit(self, unit, ftype, error)
 
    case(filetype%gaussian)
       call write_gaussian_external(self, unit)
-
-   case(filetype%cjson)
-      call write_cjson(self, unit)
 
    case(filetype%qcschema)
       call write_qcschema(self, unit)

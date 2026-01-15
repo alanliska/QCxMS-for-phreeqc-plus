@@ -14,23 +14,20 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/context/type.f90
-!> Provides a context manager for storing persistent environment settings
-
 !> Calculation context for storing and communicating with the environment
 module tblite_context_type
    use iso_fortran_env, only : output_unit
    use mctc_env, only : error_type
    use tblite_context_logger, only : context_logger
-   use tblite_context_solver, only : context_solver
    use tblite_context_terminal, only : context_terminal
-   use tblite_scf_solver, only : solver_type
    implicit none
    private
 
+   public :: context_type
+
 
    !> Calculation context type for error handling and output messages
-   type, public :: context_type
+   type :: context_type
       !> Default output unit for this context
       integer :: unit = output_unit
       !> Default verbosity for procedures using this context
@@ -39,8 +36,6 @@ module tblite_context_type
       type(error_type), allocatable :: error_log(:)
       !> Optional logger to be used for writing messages
       class(context_logger), allocatable :: io
-      !> Optional factory for creating electronic solvers
-      class(context_solver), allocatable :: solver
       !> Color support for output
       type(context_terminal) :: terminal = context_terminal()
    contains
@@ -52,10 +47,6 @@ module tblite_context_type
       procedure :: get_error
       !> Query the context for errors
       procedure :: failed
-      !> Create electronic solver instance
-      procedure :: new_solver
-      !> Delete an electronic solver instance
-      procedure :: delete_solver
    end type context_type
 
 
@@ -119,39 +110,6 @@ pure function failed(self)
       failed = size(self%error_log) > 0
    end if
 end function failed
-
-
-!> Create new electronic solver
-subroutine new_solver(self, solver, ndim)
-   use tblite_lapack_solver, only : lapack_solver
-   !> Instance of the calculation context
-   class(context_type), intent(inout) :: self
-   !> New electronic solver
-   class(solver_type), allocatable, intent(out) :: solver
-   !> Dimension of the eigenvalue problem
-   integer, intent(in) :: ndim
-
-   if (.not.allocated(self%solver)) then
-      self%solver = lapack_solver()
-   end if
-
-   call self%solver%new(solver, ndim)
-end subroutine new_solver
-
-
-!> Delete electronic solver instance
-subroutine delete_solver(self, solver)
-   !> Instance of the calculation context
-   class(context_type), intent(inout) :: self
-   !> Electronic solver instance
-   class(solver_type), allocatable, intent(inout) :: solver
-
-   if (allocated(self%solver)) then
-      call self%solver%delete(solver)
-   end if
-
-   if (allocated(solver)) deallocate(solver)
-end subroutine delete_solver
 
 
 end module tblite_context_type

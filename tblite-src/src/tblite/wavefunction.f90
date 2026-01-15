@@ -14,17 +14,11 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @dir tblite/wavefunction
-!> Contains wavefunction related information
-
-!> @file tblite/wavefunction.f90
-!> Provides reexports of wavefunction related procedures and types
-
 !> Proxy module for wavefunction related types and procedures
 module tblite_wavefunction
    use tblite_wavefunction_guess, only : sad_guess, eeq_guess
    use tblite_wavefunction_mulliken, only : get_molecular_dipole_moment, &
-      & get_molecular_quadrupole_moment, get_mayer_bond_orders
+      & get_molecular_quadrupole_moment
    use tblite_wavefunction_spin, only : magnet_to_updown, updown_to_magnet
    use tblite_wavefunction_type, only : wavefunction_type, new_wavefunction, &
       & get_density_matrix, get_alpha_beta_occupation

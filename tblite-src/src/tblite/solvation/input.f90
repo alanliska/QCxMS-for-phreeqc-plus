@@ -14,19 +14,17 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/solvation/input.f90
-!> Provides a collection of all input configurations
-
-!> Collection of the configuration types for all available implicit solvation models
 module tblite_solvation_input
    use tblite_solvation_alpb, only : alpb_input
    use tblite_solvation_cpcm, only : cpcm_input
    implicit none
    private
 
+   public :: solvation_input
+
 
    !> Collection of possible solvation models
-   type, public :: solvation_input
+   type :: solvation_input
       !> Input for CPCM solvation model
       type(cpcm_input), allocatable :: cpcm
       !> Input for ALPB solvation model

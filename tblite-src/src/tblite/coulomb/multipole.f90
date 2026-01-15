@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/coulomb/multipole.f90
-!> Provides an implemenation of a multipole based second-order electrostatic
-
 !> Anisotropic second-order electrostatics using a damped multipole expansion
 module tblite_coulomb_multipole
    use mctc_env, only : wp
@@ -36,11 +33,11 @@ module tblite_coulomb_multipole
    implicit none
    private
 
-   public :: new_damped_multipole
+   public :: damped_multipole, new_damped_multipole
 
 
    !> Container to handle multipole electrostatics
-   type, public, extends(coulomb_type) :: damped_multipole
+   type, extends(coulomb_type) :: damped_multipole
       !> Damping function for inverse quadratic contributions
       real(wp) :: kdmp3 = 0.0_wp
       !> Damping function for inverse cubic contributions

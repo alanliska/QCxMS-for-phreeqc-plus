@@ -1,5 +1,5 @@
-FC = /path/to/cross-compiler/prefix-gfortran
-F77 = /path/to/cross-compiler/prefix-gfortran
+FC = /path/to/your/cross-compiler/prefix/gfortran
+F77 = /path/to/your/cross-compiler/prefix/gfortran
 
 FPFLAGS = -DWITH_JSON=0 -DWITH_BLAS=1
 
@@ -7,17 +7,17 @@ FPFLAGS = -DWITH_JSON=0 -DWITH_BLAS=1
 
 #F77FLAGS = -fdefault-real-8 -fdefault-double-8 -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie
 
-FFLAGS =  -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIE
+FFLAGS =  -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIC
 
-F77FLAGS = -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIE
+F77FLAGS = -ffree-line-length-none -fbacktrace -O2 -g -DNDEBUG -pie -fdefault-real-8 -fdefault-double-8 -fPIC
 
 CFLAGS= -O2 -g -DNDEBUG -fPIC -pie
 
-LIB = ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ./libmctc.a ../../libs-x86_64/libblas.a
+LIB = ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../liblapack.a ./libs-dftd3.a ./libmctc.a ../libblas.a
 
 INC = -I./mctc-lib-src/include/mctc -I./mctc-lib-src/include -I. -I./include -I./tblite-src/include -I./tblite-src
 
-LDFLAGS = -pie -static -fPIC -Wl,-z,max-page-size=16384
+LDFLAGS = -pie -fPIC -static -Wl,-z,max-page-size=16384
 	
 MCTCLIB = mctc-lib-src/src/mctc/env/accuracy.o \
 mctc-lib-src/src/mctc/env/error.o \
@@ -34,7 +34,6 @@ mctc-lib-src/src/mctc/io/symbols.o \
 mctc-lib-src/src/mctc/io/structure.o \
 mctc-lib-src/src/mctc/io/utils.o \
 mctc-lib-src/src/mctc/io/read/aims.o \
-mctc-lib-src/src/mctc/io/read/cjson.o \
 mctc-lib-src/src/mctc/io/read/ctfile.o \
 mctc-lib-src/src/mctc/io/read/gaussian.o \
 mctc-lib-src/src/mctc/io/read/genformat.o \
@@ -47,7 +46,6 @@ mctc-lib-src/src/mctc/io/read/xyz.o \
 mctc-lib-src/src/mctc/io/read.o \
 mctc-lib-src/src/mctc/io/write/aims.o \
 mctc-lib-src/src/mctc/io/math.o \
-mctc-lib-src/src/mctc/io/write/cjson.o \
 mctc-lib-src/src/mctc/io/write/ctfile.o \
 mctc-lib-src/src/mctc/io/write/gaussian.o \
 mctc-lib-src/src/mctc/io/write/genformat.o \
@@ -175,12 +173,7 @@ tblite-src/src/tblite/api/error.o \
 tblite-src/src/tblite/context/logger.o \
 tblite-src/src/tblite/context/terminal.o \
 tblite-src/src/tblite/scf/solver.o \
-tblite-src/src/tblite/context/solver.o \
 tblite-src/src/tblite/lapack/sygvd.o \
-tblite-src/src/tblite/lapack/potrf.o \
-tblite-src/src/tblite/lapack/sygst.o \
-tblite-src/src/tblite/lapack/sygvr.o \
-tblite-src/src/tblite/lapack/solver.o \
 tblite-src/src/tblite/context/type.o \
 tblite-src/src/tblite/context.o \
 tblite-src/src/tblite/api/context.o \
@@ -226,7 +219,6 @@ tblite-src/src/tblite/ncoord/exp.o \
 tblite-src/src/tblite/ncoord.o \
 tblite-src/src/tblite/repulsion/effective.o \
 tblite-src/src/tblite/repulsion.o \
-tblite-src/src/tblite/coulomb.o \
 tblite-src/src/tblite/xtb/coulomb.o \
 tblite-src/src/tblite/integral/trafo.o \
 tblite-src/src/tblite/integral/multipole.o \
@@ -247,18 +239,16 @@ tblite-src/src/tblite/lapack/getrf.o \
 tblite-src/src/tblite/lapack/getri.o \
 tblite-src/src/tblite/lapack/getrs.o \
 tblite-src/src/tblite/lapack.o \
-tblite-src/src/tblite/scf/mixer/type.o \
-tblite-src/src/tblite/scf/mixer/broyden.o \
-tblite-src/src/tblite/scf/mixer.o \
+tblite-src/src/tblite/scf/broyden.o \
 tblite-src/src/tblite/wavefunction/fermi.o \
 tblite-src/src/tblite/scf/iterator.o \
 tblite-src/src/tblite/scf.o \
 tblite-src/src/tblite/timer.o \
+tblite-src/src/tblite/output/ascii.o \
+tblite-src/src/tblite/output/property.o \
 tblite-src/src/tblite/xtb/singlepoint.o \
 tblite-src/src/tblite/api/calculator.o \
-tblite-src/src/tblite/basis.o \
 tblite-src/src/tblite/data/spin.o \
-tblite-src/src/tblite/data.o \
 tblite-src/src/tblite/fit/newuoa.o \
 tblite-src/src/tblite/fit/settings.o \
 tblite-src/src/tblite/integral/dipole.o \
@@ -266,8 +256,6 @@ tblite-src/src/tblite/integral/overlap.o \
 tblite-src/src/tblite/io/tag.o \
 tblite-src/src/tblite/mesh/lebedev.o \
 tblite-src/src/tblite/os.o \
-tblite-src/src/tblite/output/ascii.o \
-tblite-src/src/tblite/output/property.o \
 tblite-src/src/tblite/solvation/born.o \
 tblite-src/src/tblite/solvation/data.o \
 tblite-src/src/tblite/solvation/type.o \
@@ -278,13 +266,11 @@ tblite-src/src/tblite/solvation/input.o \
 tblite-src/src/tblite/solvation.o \
 tblite-src/src/tblite/solvation/surface.o \
 tblite-src/src/tblite/solvation/cds.o \
-tblite-src/src/tblite/spin.o \
-tblite-src/src/tblite/xtb.o
+tblite-src/src/tblite/spin.o
 
 MCTCTESTERLIB = mctc-lib-src/test/test_math.o \
 mctc-lib-src/test/test_read.o \
 mctc-lib-src/test/test_read_aims.o \
-mctc-lib-src/test/test_read_cjson.o \
 mctc-lib-src/test/test_read_ctfile.o \
 mctc-lib-src/test/test_read_gaussian.o \
 mctc-lib-src/test/test_read_genformat.o \
@@ -298,7 +284,6 @@ mctc-lib-src/test/test_symbols.o \
 mctc-lib-src/test/testsuite_structure.o \
 mctc-lib-src/test/test_write.o \
 mctc-lib-src/test/test_write_aims.o \
-mctc-lib-src/test/test_write_cjson.o \
 mctc-lib-src/test/test_write_ctfile.o \
 mctc-lib-src/test/test_write_gaussian.o \
 mctc-lib-src/test/test_write_genformat.o \
@@ -494,32 +479,32 @@ QCXMS =	src/main.o
 all:  libmctc.a libs-dftd3.a libtoml-f.a libmulticharge.a libdftd4.a libtblite.a mctc-convert libmstore.a mstore-fortranize mstore-info toml2json libtest-drive.a tftester json2toml tftest-fpm tftest-version test-drive-tester multicharge multicharge-tester dftd4 dftd4-tester s-dftd3 s-dftd3-tester tblite tblite-tester librmsd.a rmsd-tool rmsd-tester libqcxms.a qcxms strip
 	
 libmctc.a:  $(MCTCLIB) 
-	/path/to/cross-compiler/prefix-ar qc libmctc.a $(MCTCLIB) 
-	/path/to/cross-compiler/prefix-ranlib libmctc.a
+	/path/to/your/cross-compiler/prefix/ar qc libmctc.a $(MCTCLIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libmctc.a
 
 libs-dftd3.a:  $(SDFTD3LIB) 
-	/path/to/cross-compiler/prefix-ar qc libs-dftd3.a $(SDFTD3LIB) 
-	/path/to/cross-compiler/prefix-ranlib libs-dftd3.a
+	/path/to/your/cross-compiler/prefix/ar qc libs-dftd3.a $(SDFTD3LIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libs-dftd3.a
 
 libtoml-f.a:	$(TOMLFLIB) 
-	/path/to/cross-compiler/prefix-ar qc libtoml-f.a $(TOMLFLIB) 
-	/path/to/cross-compiler/prefix-ranlib libtoml-f.a
+	/path/to/your/cross-compiler/prefix/ar qc libtoml-f.a $(TOMLFLIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libtoml-f.a
 
 libmulticharge.a:  $(MULTICHARGELIB) 
-	/path/to/cross-compiler/prefix-ar qc libmulticharge.a $(MULTICHARGELIB) 
-	/path/to/cross-compiler/prefix-ranlib libmulticharge.a
+	/path/to/your/cross-compiler/prefix/ar qc libmulticharge.a $(MULTICHARGELIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libmulticharge.a
 	
 libdftd4.a:  $(DFTD4LIB) 
-	/path/to/cross-compiler/prefix-ar qc libdftd4.a $(DFTD4LIB) 
-	/path/to/cross-compiler/prefix-ranlib libdftd4.a
+	/path/to/your/cross-compiler/prefix/ar qc libdftd4.a $(DFTD4LIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libdftd4.a
 	
 libtblite.a:  $(TBLITELIB) 
-	/path/to/cross-compiler/prefix-ar qc libtblite.a $(TBLITELIB) 
-	/path/to/cross-compiler/prefix-ranlib libtblite.a
+	/path/to/your/cross-compiler/prefix/ar qc libtblite.a $(TBLITELIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libtblite.a
 	
 librmsd.a:  $(RMSDLIB) 
-	/path/to/cross-compiler/prefix-ar qc librmsd.a $(RMSDLIB)
-	/path/to/cross-compiler/prefix-ranlib librmsd.a
+	/path/to/your/cross-compiler/prefix/ar qc librmsd.a $(RMSDLIB)
+	/path/to/your/cross-compiler/prefix/ranlib librmsd.a
 	
 rmsd-tool:  $(RMSDTOOL) 
 	$(FC) $(FFLAGS) $(RMSDTOOL) $(LDFLAGS) -o rmsd-tool-exe ./librmsd.a $(LIB)
@@ -528,8 +513,8 @@ rmsd-tester:  $(RMSDTESTER)
 	$(FC) $(FFLAGS) $(RMSDTESTER) $(LDFLAGS) -o rmsd-tester ./librmsd.a $(LIB)
 	
 libqcxms.a:  $(QCXMSLIB)
-	/path/to/cross-compiler/prefix-ar qc libqcxms.a $(QCXMSLIB) 
-	/path/to/cross-compiler/prefix-ranlib libqcxms.a
+	/path/to/your/cross-compiler/prefix/ar qc libqcxms.a $(QCXMSLIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libqcxms.a
 
 #libxtb.so:  $(XTBLIB) 
 #	$(FC) -fPIC -shared -Wl,--allow-multiple-definition -Wl,-soname,libxtb.so.6 -o libxtb.so.6.6.0 $(XTBLIB) 
@@ -542,8 +527,8 @@ mctc-convert:  $(MCTCTESTERLIB) $(MCTCCONVERT)
 	$(FC) $(FFLAGS) $(MCTCTESTERLIB) $(LDFLAGS) -o mctc-lib-tester ./libmctc.a
 	
 libmstore.a:  $(MSTORELIB) 
-	/path/to/cross-compiler/prefix-ar qc libmstore.a $(MSTORELIB) 
-	/path/to/cross-compiler/prefix-ranlib libmstore.a
+	/path/to/your/cross-compiler/prefix/ar qc libmstore.a $(MSTORELIB) 
+	/path/to/your/cross-compiler/prefix/ranlib libmstore.a
 	
 mstore-fortranize:  $(MSTOREFORTRANIZE) 
 	$(FC) $(FFLAGS) $(MSTOREFORTRANIZE) $(LDFLAGS) -o mstore-fortranize ./libmstore.a ./libmctc.a
@@ -555,8 +540,8 @@ toml2json:  $(TOML2JSON)
 	$(FC) $(FFLAGS) $(TOML2JSON) $(LDFLAGS) -o toml2json $(LIB)
 	
 libtest-drive.a:  $(TESTDRIVE) 
-	/path/to/cross-compiler/prefix-ar qc libtest-drive.a $(TESTDRIVE) 
-	/path/to/cross-compiler/prefix-ranlib libtest-drive.a
+	/path/to/your/cross-compiler/prefix/ar qc libtest-drive.a $(TESTDRIVE) 
+	/path/to/your/cross-compiler/prefix/ranlib libtest-drive.a
 	
 tftester:  $(TFTESTER) 
 	$(FC) $(FFLAGS) $(TFTESTER) $(LDFLAGS) -o tftester ./libtoml-f.a ./libtest-drive.a 
@@ -577,54 +562,54 @@ multicharge:  $(MULTICHARGE)
 	$(FC) $(FFLAGS) $(MULTICHARGE) $(LDFLAGS) -o multicharge $(LIB)
 	
 multicharge-tester:  $(MULTICHARGETESTER) 
-	$(FC) $(FFLAGS) $(MULTICHARGETESTER) $(LDFLAGS) -o multicharge-tester ./libmulticharge.a ../../libs-x86_64/liblapack.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a
+	$(FC) $(FFLAGS) $(MULTICHARGETESTER) $(LDFLAGS) -o multicharge-tester ./libmulticharge.a ../liblapack.a ../libblas.a ./libmstore.a ./libmctc.a
 	
 dftd4:  $(DFTD4) 
-	$(FC) $(FFLAGS) $(DFTD4) $(LDFLAGS) -o dftd4 ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a 
+	$(FC) $(FFLAGS) $(DFTD4) $(LDFLAGS) -o dftd4 ./libdftd4.a ./libmulticharge.a ../liblapack.a ../libblas.a ./libmstore.a ./libmctc.a 
 	
 dftd4-tester:  $(DFTD4TESTER) 
-	$(FC) $(FFLAGS) $(DFTD4TESTER) $(LDFLAGS) -o dftd4-tester ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a 
+	$(FC) $(FFLAGS) $(DFTD4TESTER) $(LDFLAGS) -o dftd4-tester ./libdftd4.a ./libmulticharge.a ../liblapack.a ../libblas.a ./libmstore.a ./libmctc.a 
 	
 s-dftd3:  $(SDFTD3) 
 	$(FC) $(FFLAGS) $(SDFTD3) $(LDFLAGS) -o s-dftd3 $(LIB)
 	
 s-dftd3-tester:  $(SDFTD3TESTER) 
-	$(FC) $(FFLAGS) $(SDFTD3TESTER) $(LDFLAGS) -o s-dftd3-tester  ./libs-dftd3.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a 
+	$(FC) $(FFLAGS) $(SDFTD3TESTER) $(LDFLAGS) -o s-dftd3-tester  ./libs-dftd3.a ../libblas.a ./libmstore.a ./libmctc.a 
 	
 tblite:  $(TBLITE) 
 	$(FC) $(FFLAGS) $(TBLITE) $(LDFLAGS) -o tblite $(LIB)
 	
 tblite-api-tester:  $(TBLITEAPITESTER)
-# remove from Linux cross compilations - problems with adding symbols (wrong format - aarch64), relocations (x86)...
-# $(CC) $(CFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../libs-x86_64/liblapack.a ./libs-dftd3.a ./libmctc.a ../libs-x86_64/libblas.a -static-libgfortran -lm -lgcc
-	$(FC) $(FFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ./libmctc.a ../../libs-x86_64/libblas.a -static -pie -fPIC -lm -lgcc
+# remove from Linux cross compilations - problems with adding symbols (wrong format - aarch64), relocations (aarch64)...
+# $(CC) $(CFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../liblapack.a ./libs-dftd3.a ./libmctc.a ../libblas.a -static-libgfortran -lm -lgcc
+	$(FC) $(FFLAGS) $(TBLITEAPITESTER) $(LDFLAGS) -o tblite-api-tester  ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../liblapack.a ./libs-dftd3.a ./libmctc.a ../libblas.a -static -pie -fPIC -lm -lgcc
 	
 tblite-tester:  $(TBLITETESTER) 
-	$(FC) $(FFLAGS) $(TBLITETESTER) $(LDFLAGS) -o tblite-tester ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../../libs-x86_64/liblapack.a ./libs-dftd3.a ../../libs-x86_64/libblas.a ./libmstore.a ./libmctc.a
+	$(FC) $(FFLAGS) $(TBLITETESTER) $(LDFLAGS) -o tblite-tester ./libtblite.a ./libtoml-f.a ./libdftd4.a ./libmulticharge.a ../liblapack.a ./libs-dftd3.a ../libblas.a ./libmstore.a ./libmctc.a
 	
 strip:
-	/path/to/cross-compiler/prefix-strip qcxms
-	/path/to/cross-compiler/prefix-strip mctc-convert
-	/path/to/cross-compiler/prefix-strip mctc-lib-tester
-	/path/to/cross-compiler/prefix-strip mstore-fortranize
-	/path/to/cross-compiler/prefix-strip mstore-info
-	/path/to/cross-compiler/prefix-strip toml2json
-	/path/to/cross-compiler/prefix-strip tftester
-	/path/to/cross-compiler/prefix-strip json2toml
-	/path/to/cross-compiler/prefix-strip tftest-fpm
-	/path/to/cross-compiler/prefix-strip tftest-version
-	/path/to/cross-compiler/prefix-strip test-drive-tester
-	/path/to/cross-compiler/prefix-strip multicharge
-	/path/to/cross-compiler/prefix-strip multicharge-tester
-	/path/to/cross-compiler/prefix-strip dftd4
-	/path/to/cross-compiler/prefix-strip dftd4-tester
-	/path/to/cross-compiler/prefix-strip s-dftd3
-	/path/to/cross-compiler/prefix-strip s-dftd3-tester
-	/path/to/cross-compiler/prefix-strip tblite
-#	/path/to/cross-compiler/prefix-strip tblite-api-tester
-	/path/to/cross-compiler/prefix-strip tblite-tester
-	/path/to/cross-compiler/prefix-strip rmsd-tester
-	/path/to/cross-compiler/prefix-strip rmsd-tool-exe
+	/path/to/your/cross-compiler/prefix/strip qcxms
+	/path/to/your/cross-compiler/prefix/strip mctc-convert
+	/path/to/your/cross-compiler/prefix/strip mctc-lib-tester
+	/path/to/your/cross-compiler/prefix/strip mstore-fortranize
+	/path/to/your/cross-compiler/prefix/strip mstore-info
+	/path/to/your/cross-compiler/prefix/strip toml2json
+	/path/to/your/cross-compiler/prefix/strip tftester
+	/path/to/your/cross-compiler/prefix/strip json2toml
+	/path/to/your/cross-compiler/prefix/strip tftest-fpm
+	/path/to/your/cross-compiler/prefix/strip tftest-version
+	/path/to/your/cross-compiler/prefix/strip test-drive-tester
+	/path/to/your/cross-compiler/prefix/strip multicharge
+	/path/to/your/cross-compiler/prefix/strip multicharge-tester
+	/path/to/your/cross-compiler/prefix/strip dftd4
+	/path/to/your/cross-compiler/prefix/strip dftd4-tester
+	/path/to/your/cross-compiler/prefix/strip s-dftd3
+	/path/to/your/cross-compiler/prefix/strip s-dftd3-tester
+	/path/to/your/cross-compiler/prefix/strip tblite
+#	/path/to/your/cross-compiler/prefix/strip tblite-api-tester
+	/path/to/your/cross-compiler/prefix/strip tblite-tester
+	/path/to/your/cross-compiler/prefix/strip rmsd-tester
+	/path/to/your/cross-compiler/prefix/strip rmsd-tool-exe
 
 clean: 
 	find . -name "*.o" -type f -delete

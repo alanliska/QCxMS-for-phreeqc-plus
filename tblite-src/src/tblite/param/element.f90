@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/element.f90
-!> Provides records for the element specific parameters
-
 !> Definition of the element specific parameter records
 module tblite_param_element
    use mctc_env, only : wp, error_type, fatal_error
@@ -27,7 +24,7 @@ module tblite_param_element
    implicit none
    private
 
-   public :: count
+   public :: element_record, element_mask, count
 
 
    !> The conversion factor from eV to Hartree is used for compatibility with older
@@ -45,7 +42,7 @@ module tblite_param_element
       & k_mpvcn = "mpvcn", k_xbond = "xbond", k_en = "en"
 
    !> Representation of the element specific parameters
-   type, public, extends(serde_record) :: element_record
+   type, extends(serde_record) :: element_record
       !> Element symbol of specie represented by this record
       character(len=symbol_length) :: sym = ''
       !> Atomic number of the specie represented by this record
@@ -111,8 +108,7 @@ module tblite_param_element
    end type
 
 
-   !> Masking for the element record
-   type, public :: element_mask
+   type :: element_mask
       !> Element symbol of specie represented by this record
       character(len=symbol_length) :: sym = ''
       !> Atomic number of the specie represented by this record

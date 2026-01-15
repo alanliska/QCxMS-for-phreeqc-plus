@@ -98,7 +98,7 @@ end function new_serializer_func
 
 
 !> Visit a TOML value
-recursive subroutine visit(self, val)
+subroutine visit(self, val)
 
    !> Instance of the TOML serializer
    class(toml_serializer), intent(inout) :: self
@@ -142,7 +142,7 @@ end subroutine visit_keyval
 
 
 !> Visit a TOML array
-recursive subroutine visit_array(visitor, array)
+subroutine visit_array(visitor, array)
 
    !> Instance of the TOML serializer
    class(toml_serializer), intent(inout) :: visitor
@@ -189,7 +189,7 @@ end subroutine visit_array
 
 
 !> Visit a TOML table
-recursive subroutine visit_table(visitor, table)
+subroutine visit_table(visitor, table)
 
    !> Instance of the TOML serializer
    class(toml_serializer), intent(inout) :: visitor

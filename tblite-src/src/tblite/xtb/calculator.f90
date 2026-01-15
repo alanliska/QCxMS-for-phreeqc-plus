@@ -14,12 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/xtb/calculator.f90
-!> Provides the calculator type for holding xTB Hamiltonian parametrization.
-
-!> Implementation of calculator type for the extended-tight binding Hamiltonian.
-!> The #tblite_xtb_calculator::xtb_calculator collects the basic interactions
-!> required to perform a tight-binding calculation.
 module tblite_xtb_calculator
    use mctc_env, only : wp, error_type, fatal_error
    use mctc_io, only : structure_type
@@ -45,36 +39,22 @@ module tblite_xtb_calculator
    implicit none
    private
 
-   public :: new_xtb_calculator
+   public :: xtb_calculator, new_xtb_calculator
    public :: param_h0spec
 
-   !> Default value for self-consistent iteration mixing
    real(wp), parameter :: mixer_damping_default = 0.4_wp
-
-   !> Default maximum number of self-consistent iterations
    integer, parameter :: max_iter_default = 250
 
-   !> Extended tight-binding calculator
-   type, public :: xtb_calculator
-      !> Basis set definition
+   type :: xtb_calculator
       type(basis_type) :: bas
-      !> Core Hamiltonian
       type(tb_hamiltonian) :: h0
-      !> Coordination number for modifying the self-energies
       class(ncoord_type), allocatable :: ncoord
-      !> Repulsion energy interactions
       type(tb_repulsion), allocatable :: repulsion
-      !> Collection of all Coulombic interactions
       type(tb_coulomb), allocatable :: coulomb
-      !> Halogen bonding correction
       type(halogen_correction), allocatable :: halogen
-      !> London-dispersion interaction
       class(dispersion_type), allocatable :: dispersion
-      !> Parameter for self-consistent iteration mixing
       real(wp) :: mixer_damping = mixer_damping_default
-      !> Maximum number of self-consistent iteractions
       integer :: max_iter = max_iter_default
-      !> Store calculated integral intermediates
       logical :: save_integrals = .false.
       !> List of additional interaction containers
       type(container_list), allocatable :: interactions
@@ -90,7 +70,7 @@ module tblite_xtb_calculator
    end type xtb_calculator
 
 
-   !> Specification of the Hamiltonian
+   !> Specification of the
    type, extends(tb_h0spec) :: param_h0spec
       type(param_record), pointer :: param => null()
       integer, pointer :: irc(:) => null()
@@ -108,7 +88,6 @@ module tblite_xtb_calculator
       procedure :: get_reference_occ
    end type param_h0spec
 
-   !> Constructor for Hamiltonian specification
    interface param_h0spec
       module procedure :: new_param_h0spec
    end interface param_h0spec
@@ -117,7 +96,6 @@ module tblite_xtb_calculator
 contains
 
 
-!> Create new xTB Hamiltonian calculator from parametrization data
 subroutine new_xtb_calculator(calc, mol, param, error)
    !> Instance of the xTB calculator
    type(xtb_calculator), intent(out) :: calc

@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/disp/d3.f90
-!> Provides a proxy for the [DFT-D3 dispersion correction](https://dftd3.readthedocs.io)
-
 !> Semiclassical DFT-D3 dispersion correction
 module tblite_disp_d3
    use mctc_env, only : wp
@@ -30,11 +27,11 @@ module tblite_disp_d3
    implicit none
    private
 
-   public :: new_d3_dispersion
+   public :: d3_dispersion, new_d3_dispersion
 
 
    !> Container for DFT-D3 type dispersion correction
-   type, public, extends(dispersion_type) :: d3_dispersion
+   type, extends(dispersion_type) :: d3_dispersion
       type(d3_model) :: model
       type(rational_damping_param) :: param
       type(realspace_cutoff) :: cutoff

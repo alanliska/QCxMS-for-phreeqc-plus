@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/repulsion.f90
-!> Provides a module for the repulsion interactions
-
 !> Definition of the repulsion interactions
 module tblite_param_repulsion
    use mctc_env, only : wp, error_type, fatal_error
@@ -25,14 +22,14 @@ module tblite_param_repulsion
    implicit none
    private
 
-   public :: count
+   public :: repulsion_record, repulsion_mask, count
 
 
    character(len=*), parameter :: k_effective = "effective", k_kexp = "kexp", &
       & k_klight = "klight"
 
    !> Parametrization records describing the repulsion interactions
-   type, public, extends(serde_record) :: repulsion_record
+   type, extends(serde_record) :: repulsion_record
       real(wp) :: kexp
       real(wp) :: klight
    contains
@@ -49,8 +46,7 @@ module tblite_param_repulsion
    end type
 
 
-   !> Provides a mask for the repulsion model
-   type, public :: repulsion_mask
+   type :: repulsion_mask
    end type repulsion_mask
 
 

@@ -15,18 +15,6 @@
  * along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 **/
 
-/**@file tblite/error.h
- * @brief
- * Provides a light-weight error handler for communicating with the library.
- *
- * The library provides two different kinds handlers, a light error handle type
- * #tblite_error is defined here.
- *
- * The error handle is used in the context of simple tasks and requires
- * only small overhead to construct and use.
- * It is mainly used in the context of retrieving data or building structures.
- */
-
 #pragma once
 
 #include "tblite/macros.h"

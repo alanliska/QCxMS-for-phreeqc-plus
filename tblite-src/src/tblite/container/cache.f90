@@ -14,18 +14,15 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/container/cache.f90
-!> Provides a cache for use with interaction containers
-
 !> Definition of restart data cache
 module tblite_container_cache
    implicit none
    private
 
-   public :: resize
+   public :: container_cache, resize
 
    !> Restart data for an interaction container
-   type, public :: container_cache
+   type :: container_cache
       !> Label identifying this contribution
       character(len=:), allocatable :: label
       !> Actual restart data

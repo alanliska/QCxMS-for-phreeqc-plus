@@ -98,7 +98,6 @@ module tblite_cli_help
       ""//nl//&
       "Evaluates the tight-binding model on the provided input structure."//nl//&
       "Periodic calculations are performed automatically for periodic input formats."//nl//&
-      "Reads .CHRG and .UHF files if present in the same directory as the input."//nl//&
       ""//nl//&
       help_text_geometry//nl//&
       ""//nl//&
@@ -112,9 +111,6 @@ module tblite_cli_help
       "      --etemp <real>      Electronic temperature for calculation (Default: 300K)"//nl//&
       "      --guess <name>      Guess for the initial populations, possible options:"//nl//&
       "                          sad (default), and eeq."//nl//&
-      "      --iterations <int>  Maximum number of SCF iterations (Default: 250)"//nl//&
-      "      --solver <name>     Electronic solver for SCF, possible options:"//nl//&
-      "                          gvd (default), and gvr"//nl//&
       "      --efield <real>,<real>,<real>"//nl//&
       "                          Homogeneous electric field in V/Å."//nl//&
       "--alpb <real>             Use analytical linearized Poisson-Boltzmann solvation."//nl//&

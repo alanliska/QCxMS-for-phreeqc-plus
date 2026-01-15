@@ -14,26 +14,23 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/results.f90
-!> Provides a container for storing additional calculation results.
-
-!> Container for holding results produced by a calculation.
+!> Container for holding results produced by a calculation
 module tblite_results
    use mctc_env, only : wp
    implicit none
    private
 
+   public :: results_type
+
 
    !> Results container
-   type, public :: results_type
+   type results_type
       !> Atom-resolved energies
       real(wp), allocatable :: energies(:)
       !> Overlap integrals
       real(wp), allocatable :: overlap(:, :)
       !> (Core) Hamiltonian integrals
       real(wp), allocatable :: hamiltonian(:, :)
-      !> Wiberg/Mayer bond orders
-      real(wp), allocatable :: bond_orders(:, :, :)
    end type results_type
 
 end module tblite_results

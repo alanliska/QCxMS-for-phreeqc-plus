@@ -1,3 +1,0 @@
-character(len=*),parameter :: version = "6.6.0 (unknown-commit)"
-character(len=*),parameter :: date = "06/18/2023"
-character(len=*),parameter :: author = "'@Linux'"

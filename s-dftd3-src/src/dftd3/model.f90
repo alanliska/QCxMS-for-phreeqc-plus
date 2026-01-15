@@ -15,7 +15,7 @@
 ! along with s-dftd3.  If not, see <https://www.gnu.org/licenses/>.
 
 module dftd3_model
-!   use ieee_arithmetic, only : ieee_is_nan
+   use ieee_arithmetic, only : ieee_is_nan
    use dftd3_data, only : get_covalent_rad, get_r4r2_val, get_vdw_rad
    use dftd3_reference
    use mctc_env, only : wp
@@ -239,8 +239,7 @@ end subroutine weight_references
 elemental function is_exceptional(val)
    real(wp), intent(in) :: val
    logical :: is_exceptional
-!   is_exceptional = ieee_is_nan(val) .or. abs(val) > huge(val)
-   is_exceptional = abs(val) > huge(val)
+   is_exceptional = ieee_is_nan(val) .or. abs(val) > huge(val)
 end function is_exceptional
 
 

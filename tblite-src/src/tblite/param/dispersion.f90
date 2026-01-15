@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/dispersion.f90
-!> Provides model for the dispersion corrections
-
 !> Definition of the dispersion corrections
 module tblite_param_dispersion
    use mctc_env, only : wp, error_type, fatal_error
@@ -26,14 +23,14 @@ module tblite_param_dispersion
    implicit none
    private
 
-   public :: count
+   public :: dispersion_record, dispersion_mask, count
 
 
    character(len=*), parameter :: k_d3 = "d3", k_d4 = "d4", k_sc = "sc", &
       & k_s6 = "s6", k_s8 = "s8", k_s9 = "s9", k_a1 = "a1", k_a2 = "a2"
 
    !> Parametrization record specifying the dispersion model
-   type, public, extends(serde_record) :: dispersion_record
+   type, extends(serde_record) :: dispersion_record
       !> Scaling for dipole-dipole (C6) interactions
       real(wp) :: s6
       !> Scaling for dipole-quadrupole (C6) interactions
@@ -62,8 +59,7 @@ module tblite_param_dispersion
    end type
 
 
-   !> Masking for the dispersion model
-   type, public :: dispersion_mask
+   type :: dispersion_mask
    end type dispersion_mask
 
 

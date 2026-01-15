@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/charge.f90
-!> Provides model for the isotropic second-order electrostatic
-
 !> Definition of the isotropic second-order electrostatic model
 module tblite_param_charge
    use mctc_env, only : wp, error_type, fatal_error
@@ -26,14 +23,14 @@ module tblite_param_charge
    implicit none
    private
 
-   public :: count
+   public :: charge_record, charge_mask, count
 
 
    character(len=*), parameter :: k_effective = "effective", k_gexp = "gexp", &
       & k_average = "average", k_gamma = "gamma"
 
    !> Parametrization record for the isotropic second-order electrostatics
-   type, public, extends(serde_record) :: charge_record
+   type, extends(serde_record) :: charge_record
       !> Coulomb interaction kernel
       integer :: kernel
       !> Averaging scheme for the chemical hardness / Hubbard parameters
@@ -54,8 +51,7 @@ module tblite_param_charge
    end type
 
 
-   !> Masking for the isotropic electrostatic model
-   type, public :: charge_mask
+   type :: charge_mask
    end type charge_mask
 
 

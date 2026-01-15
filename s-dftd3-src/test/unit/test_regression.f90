@@ -76,11 +76,10 @@ end subroutine test_dftbplus_871
 
 !> Check whether we are dealing with an exceptional value, NaN or Inf
 elemental function is_exceptional(val)
-!   use ieee_arithmetic, only : ieee_is_nan
+   use ieee_arithmetic, only : ieee_is_nan
    real(wp), intent(in) :: val
    logical :: is_exceptional
-!   is_exceptional = ieee_is_nan(val) .or. abs(val) > huge(val)
-   is_exceptional = abs(val) > huge(val)
+   is_exceptional = ieee_is_nan(val) .or. abs(val) > huge(val)
 end function is_exceptional
 
 

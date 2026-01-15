@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/basis/type.f90
-!> Provides data types for managing basis set information
-
 !> Gaussian type basis set data
 module tblite_basis_type
    use mctc_env, only : wp
@@ -24,14 +21,15 @@ module tblite_basis_type
    implicit none
    private
 
-   public :: new_basis, get_cutoff
+   public :: cgto_type
+   public :: basis_type, new_basis, get_cutoff
 
    !> Maximum contraction length of basis functions.
    !> The limit is chosen as twice the maximum size returned by the STO-NG expansion
    integer, parameter :: maxg = 12
 
    !> Contracted Gaussian type basis function
-   type, public :: cgto_type
+   type :: cgto_type
       !> Angular momentum of this basis function
       integer :: ang = -1
       !> Contraction length of this basis function
@@ -44,7 +42,7 @@ module tblite_basis_type
    end type cgto_type
 
    !> Collection of information regarding the basis set of a system
-   type, public :: basis_type
+   type :: basis_type
       !> Maximum angular momentum of all basis functions,
       !> used to determine scratch size in integral calculation
       integer :: maxl = 0

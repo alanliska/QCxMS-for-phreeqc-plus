@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/coulomb/charge/effective.f90
-!> Provides an effective Coulomb operator for isotropic electrostatic interactions
-
 !> Isotropic second-order electrostatics using an effective Coulomb operator
 module tblite_coulomb_charge_effective
    use mctc_env, only : wp
@@ -34,12 +31,12 @@ module tblite_coulomb_charge_effective
    implicit none
    private
 
-   public :: new_effective_coulomb
+   public :: effective_coulomb, new_effective_coulomb
    public :: average_interface, harmonic_average, arithmetic_average, geometric_average
 
 
    !> Effective, Klopman-Ohno-type, second-order electrostatics
-   type, public, extends(coulomb_charge_type) :: effective_coulomb
+   type, extends(coulomb_charge_type) :: effective_coulomb
       !> Hubbard parameter for each shell and species
       real(wp), allocatable :: hubbard(:, :, :, :)
       !> Exponent of Coulomb kernel

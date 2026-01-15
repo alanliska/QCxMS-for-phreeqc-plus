@@ -14,10 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/param/mask.f90
-!> Provides a general mask for the complete parameters set
-
-!> Collection of the parameter masking
 module tblite_param_mask
    use mctc_env, only : wp, error_type, fatal_error
    use mctc_io_symbols, only : to_number, symbol_length
@@ -35,7 +31,7 @@ module tblite_param_mask
    implicit none
    private
 
-   public :: count
+   public :: param_mask, count
 
 
    type :: allowed_records
@@ -49,8 +45,7 @@ module tblite_param_mask
    end type allowed_records
 
 
-   !> Definition of the complete parameter mask
-   type, public, extends(serde_record) :: param_mask
+   type, extends(serde_record) :: param_mask
       !> Definition of the Hamiltonian, always required
       type(hamiltonian_mask), allocatable :: hamiltonian
       !> Definition of the dispersion correction

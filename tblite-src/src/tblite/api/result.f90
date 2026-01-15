@@ -14,10 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/api/result.f90
-!> Provides API exports for the #tblite_result handle.
-
-!> API export for managing calculation results
 module tblite_api_result
    use, intrinsic :: iso_c_binding
    use mctc_env, only : wp, error_type, fatal_error
@@ -35,8 +31,7 @@ module tblite_api_result
       & get_result_quadrupole_api, get_result_orbital_energies_api, &
       & get_result_orbital_occupations_api, get_result_orbital_coefficients_api, &
       & get_result_energies_api, get_result_density_matrix_api, &
-      & get_result_overlap_matrix_api, get_result_hamiltonian_matrix_api, &
-      & get_result_bond_orders_api
+      & get_result_overlap_matrix_api, get_result_hamiltonian_matrix_api
 
 
    !> Void pointer holding results of a calculation
@@ -498,35 +493,6 @@ subroutine get_result_hamiltonian_matrix_api(verror, vres, hmat) &
    hmat(:size(res%results%hamiltonian)) = &
       & reshape(res%results%hamiltonian, [size(res%results%hamiltonian)])
 end subroutine get_result_hamiltonian_matrix_api
-
-
-subroutine get_result_bond_orders_api(verror, vres, mbo) &
-      & bind(C, name=namespace//"get_result_bond_orders")
-   type(c_ptr), value :: verror
-   type(vp_error), pointer :: error
-   type(c_ptr), value :: vres
-   type(vp_result), pointer :: res
-   real(c_double), intent(out) :: mbo(*)
-   logical :: ok
-
-   if (debug) print '("[Info]", 1x, a)', "get_result_bond_orders"
-
-   call get_result(verror, vres, error, res, ok)
-   if (.not.ok) return
-
-   if (.not.allocated(res%results)) then
-      call fatal_error(error%ptr, "Result does not contain bond orders")
-      return
-   end if
-
-   if (.not.allocated(res%results%bond_orders)) then
-      call fatal_error(error%ptr, "Result does not contain bond orders")
-      return
-   end if
-
-   mbo(:size(res%results%bond_orders)) = &
-      & reshape(res%results%bond_orders, [size(res%results%bond_orders)])
-end subroutine get_result_bond_orders_api
 
 
 subroutine get_result(verror, vres, error, res, ok)

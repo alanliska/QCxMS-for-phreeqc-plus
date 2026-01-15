@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/api/context.f90
-!> Provides API exports for the #tblite_context handle.
-
 !> API export for environment context setup
 module tblite_api_context
    use, intrinsic :: iso_c_binding
@@ -30,7 +27,7 @@ module tblite_api_context
 
    public :: vp_context
    public :: new_context_api, check_context_api, get_context_error_api, delete_context_api
-   public :: set_context_logger_api, set_context_color_api, set_context_verbosity_api
+   public :: set_context_logger_api
 
 
    !> Void pointer to manage calculation context
@@ -151,22 +148,6 @@ subroutine set_context_color_api(vctx, color) &
       ctx%ptr%terminal = context_terminal(color /= 0)
    end if
 end subroutine set_context_color_api
-
-
-subroutine set_context_verbosity_api(vctx, verbosity) &
-      & bind(C, name=namespace//"set_context_verbosity")
-   type(c_ptr), value :: vctx
-   type(vp_context), pointer :: ctx
-   integer(c_int), value :: verbosity
-
-   if (debug) print '("[Info]", 1x, a)', "set_context_verbosity"
-
-   if (c_associated(vctx)) then
-      call c_f_pointer(vctx, ctx)
-
-      ctx%ptr%verbosity = verbosity
-   end if
-end subroutine set_context_verbosity_api
 
 
 !> Delete context object

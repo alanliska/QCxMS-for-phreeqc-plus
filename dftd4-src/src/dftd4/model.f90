@@ -16,7 +16,7 @@
 
 !> Definition of the D4 dispersion model for the evaluation of C6 coefficients.
 module dftd4_model
-!   use ieee_arithmetic, only : ieee_is_nan
+   use ieee_arithmetic, only : ieee_is_nan
    use dftd4_data, only : get_covalent_rad, get_r4r2_val, get_effective_charge, &
       get_electronegativity, get_hardness
    use dftd4_reference
@@ -387,8 +387,7 @@ end subroutine weight_references
 elemental function is_exceptional(val)
    real(wp), intent(in) :: val
    logical :: is_exceptional
-!   is_exceptional = ieee_is_nan(val) .or. abs(val) > huge(val)
-   is_exceptional = abs(val) > huge(val)
+   is_exceptional = ieee_is_nan(val) .or. abs(val) > huge(val)
 end function is_exceptional
 
 

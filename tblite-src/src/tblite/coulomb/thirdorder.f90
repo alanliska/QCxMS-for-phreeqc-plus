@@ -14,9 +14,6 @@
 ! You should have received a copy of the GNU Lesser General Public License
 ! along with tblite.  If not, see <https://www.gnu.org/licenses/>.
 
-!> @file tblite/coulomb/thirdorder.f90
-!> Provides an onsite third-order electrostatic interaction
-
 !> Isotropic third-order onsite correction
 module tblite_coulomb_thirdorder
    use mctc_env, only : wp
@@ -30,10 +27,10 @@ module tblite_coulomb_thirdorder
    implicit none
    private
 
-   public :: new_onsite_thirdorder
+   public :: onsite_thirdorder, new_onsite_thirdorder
 
    !> Onsite correction for third-order charge expansion
-   type, public, extends(coulomb_type) :: onsite_thirdorder
+   type, extends(coulomb_type) :: onsite_thirdorder
       !> Whether the third order contribution is shell-dependent
       logical :: shell_resolved
       !> Number of shell for each atom

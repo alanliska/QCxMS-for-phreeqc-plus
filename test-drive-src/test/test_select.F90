@@ -12,7 +12,7 @@
 ! limitations under the License.
 
 module test_select
-!  use, intrinsic :: ieee_arithmetic, only : ieee_value, ieee_quiet_nan
+  use, intrinsic :: ieee_arithmetic, only : ieee_value, ieee_quiet_nan
   use testdrive, only : new_unittest, unittest_type, error_type, check, &
     & run_testsuite, new_testsuite, testsuite_type, select_suite, run_selected
   implicit none

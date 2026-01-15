@@ -22,8 +22,8 @@
 #endif
 
 module test_check
-!  use, intrinsic :: ieee_arithmetic, only : ieee_value, ieee_quiet_nan
-  use testdrive, only : new_unittest, unittest_type, error_type, check, skip_test, to_string
+  use, intrinsic :: ieee_arithmetic, only : ieee_value, ieee_quiet_nan
+  use testdrive, only : new_unittest, unittest_type, error_type, check, skip_test
   implicit none
   private
 
@@ -157,12 +157,7 @@ contains
       new_unittest("character", test_char), &
       new_unittest("character-fail", test_char_fail, should_fail=.true.), &
       new_unittest("character-message", test_char_message, should_fail=.true.), &
-      new_unittest("character-with-more", test_char_with_more, should_fail=.true.), &
-      new_unittest("character-with-more", test_char_with_more, should_fail=.true.), &
-      new_unittest("string-i1", test_string_i1), &
-      new_unittest("string-i2", test_string_i2), &
-      new_unittest("string-i4", test_string_i4), &
-      new_unittest("string-i8", test_string_i8) &
+      new_unittest("character-with-more", test_char_with_more, should_fail=.true.) &
       ]
 
   end subroutine collect_check
@@ -279,8 +274,8 @@ contains
 
     real(sp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, 3.3_sp, rel=.true.)
 
   end subroutine test_rsp_nan
@@ -349,8 +344,7 @@ contains
 
     real(sp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
 
     call check(error, val, message="Actual value is not a number")
 
@@ -392,8 +386,8 @@ contains
 
     real(dp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, 3.3_dp, rel=.true.)
 
   end subroutine test_rdp_nan
@@ -448,8 +442,8 @@ contains
 
     real(dp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, message="Actual value is not a number")
 
   end subroutine test_rdp_nan_message
@@ -499,8 +493,8 @@ contains
 #if WITH_XDP
     real(xdp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, 3.3_xdp, rel=.true.)
 #else
     call skip_test(error, "Extended double precision is not enabled")
@@ -571,8 +565,8 @@ contains
 #if WITH_XDP
     real(xdp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, message="Actual value is not a number")
 #else
     call skip_test(error, "Extended double precision is not enabled")
@@ -625,8 +619,8 @@ contains
 #if WITH_QP
     real(qp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, 3.3_qp, rel=.true.)
 #else
     call skip_test(error, "Quadruple precision is not enabled")
@@ -697,8 +691,8 @@ contains
 #if WITH_QP
     real(qp) :: val
 
-!    val = ieee_value(val, ieee_quiet_nan)
-     val = 1e20
+    val = ieee_value(val, ieee_quiet_nan)
+
     call check(error, val, message="Actual value is not a number")
 #else
     call skip_test(error, "Quadruple precision is not enabled")
@@ -728,10 +722,9 @@ contains
 
     complex(sp) :: val
 
-!    val = cmplx(ieee_value(0.0_sp, ieee_quiet_nan), &
-!      & ieee_value(0.0_sp, ieee_quiet_nan), sp)
-    val = cmplx(1e20, &
-      & 1e20, sp)
+    val = cmplx(ieee_value(0.0_sp, ieee_quiet_nan), &
+      & ieee_value(0.0_sp, ieee_quiet_nan), sp)
+
     call check(error, val, cmplx(3.3_sp, 1.0_sp, sp), rel=.true.)
 
   end subroutine test_csp_nan
@@ -800,8 +793,7 @@ contains
 
     complex(sp) :: val
 
-!    val = cmplx(ieee_value(0.0_sp, ieee_quiet_nan), 0.0_sp, sp)
-     val = cmplx(1e20, 1e20, sp)
+    val = cmplx(ieee_value(0.0_sp, ieee_quiet_nan), 0.0_sp, sp)
 
     call check(error, val, message="Actual value is not a number")
 
@@ -843,8 +835,7 @@ contains
 
     complex(dp) :: val
 
-!    val = cmplx(ieee_value(0.0_dp, ieee_quiet_nan), 0.0_dp, dp)
-     val = cmplx(1e20, 1e20, dp)
+    val = cmplx(ieee_value(0.0_dp, ieee_quiet_nan), 0.0_dp, dp)
 
     call check(error, val, cmplx(3.3_dp, 1.0_dp, dp), rel=.true.)
 
@@ -900,8 +891,7 @@ contains
 
     complex(dp) :: val
 
-!    val = cmplx(ieee_value(0.0_dp, ieee_quiet_nan), 0.0_dp, dp)
-    val = cmplx(1e20, 1e20, dp)
+    val = cmplx(ieee_value(0.0_dp, ieee_quiet_nan), 0.0_dp, dp)
 
     call check(error, val, message="Actual value is not a number")
 
@@ -952,8 +942,7 @@ contains
 #if WITH_XDP
     complex(xdp) :: val
 
-!    val = cmplx(ieee_value(0.0_xdp, ieee_quiet_nan), 0.0_xdp, xdp)
-    val = cmplx(1e20, 1e20, xdp)
+    val = cmplx(ieee_value(0.0_xdp, ieee_quiet_nan), 0.0_xdp, xdp)
 
     call check(error, val, cmplx(3.3_xdp, 1.0_xdp, xdp), rel=.true.)
 #else
@@ -1025,8 +1014,7 @@ contains
 #if WITH_XDP
     complex(xdp) :: val
 
-!    val = cmplx(ieee_value(0.0_xdp, ieee_quiet_nan), 0.0_xdp, xdp)
-     val = cmplx(1e20, 1e20, xdp)
+    val = cmplx(ieee_value(0.0_xdp, ieee_quiet_nan), 0.0_xdp, xdp)
 
     call check(error, val, message="Actual value is not a number")
 #else
@@ -1080,8 +1068,7 @@ contains
 #if WITH_QP
     complex(qp) :: val
 
-!    val = cmplx(ieee_value(0.0_qp, ieee_quiet_nan), 0.0_qp, qp)
-    val = cmplx(1e20, 1e20, qp)
+    val = cmplx(ieee_value(0.0_qp, ieee_quiet_nan), 0.0_qp, qp)
 
     call check(error, val, cmplx(3.3_qp, 1.0_qp, qp), rel=.true.)
 #else
@@ -1153,8 +1140,7 @@ contains
 #if WITH_QP
     complex(qp) :: val
 
-!    val = cmplx(ieee_value(0.0_qp, ieee_quiet_nan), 0.0_qp, qp)
-    val = cmplx(1e20, 1e20, qp)
+    val = cmplx(ieee_value(0.0_qp, ieee_quiet_nan), 0.0_qp, qp)
 
     call check(error, val, message="Actual value is not a number")
 #else
@@ -1492,42 +1478,6 @@ contains
     call check(error, val, "negative", more="with an additional descriptive message")
 
   end subroutine test_char_with_more
-
-
-  subroutine test_string_i1(error)
-
-    !> Error handling
-    type(error_type), allocatable, intent(out) :: error
-
-    call check(error, to_string(-huge(1_i1) - 1_i1), "-128")
-  end subroutine test_string_i1
-
-
-  subroutine test_string_i2(error)
-
-    !> Error handling
-    type(error_type), allocatable, intent(out) :: error
-
-    call check(error, to_string(-huge(1_i2) - 1_i2), "-32768")
-  end subroutine test_string_i2
-
-
-  subroutine test_string_i4(error)
-
-    !> Error handling
-    type(error_type), allocatable, intent(out) :: error
-
-    call check(error, to_string(-huge(1_i4) - 1_i4), "-2147483648")
-  end subroutine test_string_i4
-
-
-  subroutine test_string_i8(error)
-
-    !> Error handling
-    type(error_type), allocatable, intent(out) :: error
-
-    call check(error, to_string(-huge(1_i8) - 1_i8), "-9223372036854775808")
-  end subroutine test_string_i8
 
 
 end module test_check
